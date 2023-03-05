@@ -25,6 +25,8 @@ class MainActivity2 : AppCompatActivity() {
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     private lateinit var switch1: Switch
     private lateinit var switch2: Switch
+    private lateinit var switch3: Switch
+    private lateinit var switch4: Switch
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.d("debug", "onCreate()")
@@ -37,9 +39,11 @@ class MainActivity2 : AppCompatActivity() {
         val seekbar1 = findViewById<SeekBar>(R.id.seekBar1)
 //        val divider = findViewById<View>(R.id.divider)
         switch1 = findViewById<Switch>(R.id.switch1)
+        switch3 = findViewById<Switch>(R.id.switch3)
 
         val seekBar2 = findViewById<SeekBar>(R.id.seekBar2)
         switch2 = findViewById(R.id.switch2)
+        switch4 = findViewById(R.id.switch4)
 
 
         //条纹1只在竖屏下显示
@@ -169,6 +173,17 @@ class MainActivity2 : AppCompatActivity() {
 
         })
 
+        switch3.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
+            override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
+                if (switch3.isChecked) {
+                    EasyFloat.hide(fixScreen1)
+                } else {
+                    EasyFloat.show(fixScreen1)
+                }
+            }
+
+        })
+
         //条纹2只在横屏下显示
         EasyFloat.with(this)
             .setLayout(R.layout.item_floating) {
@@ -243,6 +258,17 @@ class MainActivity2 : AppCompatActivity() {
 //                   Toast.makeText(this, "unChecked", Toast.LENGTH_SHORT).show()
                     Log.d("debug", "can drag")
                     EasyFloat.dragEnable(true, fixScreen2)
+                }
+            }
+
+        })
+
+        switch4.setOnCheckedChangeListener(object : CompoundButton.OnCheckedChangeListener {
+            override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
+                if (switch4.isChecked) {
+                    EasyFloat.hide(fixScreen2)
+                } else {
+                    EasyFloat.show(fixScreen2)
                 }
             }
 
