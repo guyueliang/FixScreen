@@ -1,20 +1,26 @@
 package com.example.fixscreen
 
 import android.annotation.SuppressLint
+import android.content.DialogInterface
 import android.content.res.Configuration
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
 import android.view.View
+import android.widget.Button
 import android.widget.CompoundButton
 import android.widget.SeekBar
 import android.widget.Switch
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.ButtonBarLayout
 import com.lzf.easyfloat.EasyFloat
 import com.lzf.easyfloat.enums.ShowPattern
 import com.lzf.easyfloat.interfaces.OnPermissionResult
 import com.lzf.easyfloat.permission.PermissionUtils
 import com.lzf.easyfloat.utils.DisplayUtils
+import com.skydoves.colorpickerview.ColorEnvelope
+import com.skydoves.colorpickerview.ColorPickerDialog
+import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
 
 class MainActivity2 : AppCompatActivity() {
      companion object {
@@ -37,6 +43,8 @@ class MainActivity2 : AppCompatActivity() {
             requestPermission();
         }
         val seekbar1 = findViewById<SeekBar>(R.id.seekBar1)
+        val btn1 = findViewById<Button>(R.id.btn1)
+        val btn2 = findViewById<Button>(R.id.btn2)
 //        val divider = findViewById<View>(R.id.divider)
         switch1 = findViewById<Switch>(R.id.switch1)
         switch3 = findViewById<Switch>(R.id.switch3)
@@ -183,6 +191,41 @@ class MainActivity2 : AppCompatActivity() {
             }
 
         })
+        btn1.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v: View?) {
+              Log.d("debug","btn1 test")
+                val builder = ColorPickerDialog.Builder(this@MainActivity2)
+                builder.setTitle("选择颜色")
+                    .setPositiveButton("确认",object : ColorEnvelopeListener{
+                        override fun onColorSelected(envelope: ColorEnvelope?, fromUser: Boolean) {
+                            val value = envelope?.color
+                            Log.d("debug","color=$value")
+                            val divider = EasyFloat.getFloatView(fixScreen1)?.findViewById<View>(R.id.divider)
+                            if (value != null) {
+                                if (divider != null) {
+                                    divider.setBackgroundColor(value)
+                                }
+                            }
+
+                        }
+
+                    })
+                    .setNegativeButton("取消",object : DialogInterface.OnClickListener{
+                        override fun onClick(dialog: DialogInterface?, which: Int) {
+                            dialog?.dismiss()
+                        }
+
+                    })
+                    .attachAlphaSlideBar(true)
+                    .attachBrightnessSlideBar(true)
+                    .setBottomSpace(12)
+                    .show()
+
+
+
+            }
+
+        })
 
         //条纹2只在横屏下显示
         EasyFloat.with(this)
@@ -270,6 +313,42 @@ class MainActivity2 : AppCompatActivity() {
                 } else {
                     EasyFloat.show(fixScreen2)
                 }
+            }
+
+        })
+
+        btn2.setOnClickListener(object : View.OnClickListener{
+            override fun onClick(v: View?) {
+                Log.d("debug","btn2 test")
+                val builder = ColorPickerDialog.Builder(this@MainActivity2)
+                builder.setTitle("选择颜色")
+                    .setPositiveButton("确认",object : ColorEnvelopeListener{
+                        override fun onColorSelected(envelope: ColorEnvelope?, fromUser: Boolean) {
+                            val value = envelope?.color
+                            Log.d("debug","color=$value")
+                            val divider = EasyFloat.getFloatView(fixScreen2)?.findViewById<View>(R.id.divider)
+                            if (value != null) {
+                                if (divider != null) {
+                                    divider.setBackgroundColor(value)
+                                }
+                            }
+
+                        }
+
+                    })
+                    .setNegativeButton("取消",object : DialogInterface.OnClickListener{
+                        override fun onClick(dialog: DialogInterface?, which: Int) {
+                            dialog?.dismiss()
+                        }
+
+                    })
+                    .attachAlphaSlideBar(true)
+                    .attachBrightnessSlideBar(true)
+                    .setBottomSpace(12)
+                    .show()
+
+
+
             }
 
         })
