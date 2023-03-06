@@ -186,7 +186,7 @@ class MainActivity2 : AppCompatActivity() {
 
         //条纹2只在横屏下显示
         EasyFloat.with(this)
-            .setLayout(R.layout.item_floating) {
+            .setLayout(R.layout.item_floating2) {
                 it.addOnLayoutChangeListener(object : View.OnLayoutChangeListener{
                     override fun onLayoutChange(
                         v: View?,
@@ -221,9 +221,9 @@ class MainActivity2 : AppCompatActivity() {
             }
             .setTag(fixScreen2)
             .setShowPattern(ShowPattern.ALL_TIME)
-            .setLocation(100, 200)
-            .setMatchParent(widthMatch = false, heightMatch = true)
-            .setLayoutChangedGravity(Gravity.CENTER_HORIZONTAL)
+            .setLocation(0,200)
+            .setMatchParent(widthMatch = true, heightMatch = false)
+            .setLayoutChangedGravity(Gravity.CENTER)
             .setImmersionStatusBar(true)
             .show()
 
@@ -233,7 +233,7 @@ class MainActivity2 : AppCompatActivity() {
                 val divider = floatView?.findViewById<View>(R.id.divider)
                 if (divider != null) {
                     val layoutparams = divider.layoutParams
-                    layoutparams.width = progress
+                    layoutparams.height = progress
                     divider.layoutParams = layoutparams
                 }
             }
